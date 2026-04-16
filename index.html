@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vallorem | Contabilidade Estratégica e Consultiva</title>
     
+    <link rel="icon" type="image/png" href="Imagens/Vallorem_Logo03.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -31,11 +33,9 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-        /* Animações de Revelação */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Header */
         header {
             height: 80px; display: flex; align-items: center; position: fixed;
             width: 100%; top: 0; background: rgba(255, 255, 255, 0.9);
@@ -51,13 +51,11 @@
         }
         .btn:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,70,146,0.15); }
 
-        /* Hero Section */
         .hero { padding: 180px 0 100px; text-align: center; background: radial-gradient(circle at top right, #f0f7ff, #ffffff); }
         .hero .copy-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; margin-bottom: 15px; display: block; }
         .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; color: var(--dark); }
         .hero p { font-size: 1.25rem; color: var(--text-light); max-width: 750px; margin: 0 auto 40px; }
 
-        /* Vídeo de Apresentação */
         .video-section { padding: 60px 0; text-align: center; }
         .video-container { 
             max-width: 850px; margin: 0 auto; border-radius: 20px; overflow: hidden; 
@@ -65,7 +63,6 @@
         }
         .video-container iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
 
-        /* Carrossel Infinito de Logos */
         .logos-bar { padding: 60px 0; background: var(--white); overflow: hidden; position: relative; border-bottom: 1px solid #eee; }
         .logos-bar p { font-size: 0.8rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 40px; text-align: center; }
         .slider { display: flex; width: calc(250px * 10); animation: scroll 25s linear infinite; }
@@ -79,7 +76,6 @@
             100% { transform: translateX(calc(-250px * 5)); }
         }
 
-        /* Seção Serviços Detalhados */
         .section-services { padding: 100px 0; background: var(--bg-light); }
         .dept-container { background: white; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; }
         .dept-header { border-bottom: 2px solid var(--bg-light); margin-bottom: 30px; padding-bottom: 20px; }
@@ -91,28 +87,29 @@
         .service-list li { margin-bottom: 8px; font-size: 0.9rem; color: var(--text-light); position: relative; padding-left: 20px; }
         .service-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
 
-        /* Equipe Section */
         .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 100px 0; }
         .team-img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 
-        /* Localização e Mapa */
         .location-section { padding: 100px 0; background: var(--white); }
         .location-box { background: white; border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
         .location-info { padding: 60px; }
         .map-container { min-height: 450px; background: #eee; }
         .map-container iframe { width: 100%; height: 100%; border: 0; }
 
-        /* Formulário */
         .section-dark { background: var(--primary); padding: 100px 0; color: white; }
         .form-card { background: white; padding: 50px; border-radius: 24px; max-width: 700px; margin: 0 auto; color: var(--text-main); }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-full { grid-column: span 2; }
         input, select { width: 100%; padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-family: inherit; margin-bottom: 5px; }
 
-        /* Footer */
-        footer { padding: 80px 0 40px; background: var(--white); text-align: center; border-top: 1px solid #eee; }
-        .social-icons { margin: 30px 0; display: flex; justify-content: center; gap: 25px; }
+        footer { padding: 60px 0 40px; background: var(--white); text-align: center; border-top: 1px solid #eee; }
+        .social-icons { margin: 25px 0; display: flex; justify-content: center; gap: 25px; }
         .social-icons a { color: var(--primary); font-size: 1.8rem; transition: 0.3s; }
+        
+        /* Estilo Viofilme */
+        .credits { font-size: 0.8rem; margin-top: 30px; color: var(--text-light); }
+        .credits a { color: var(--primary); text-decoration: none; font-weight: 700; transition: color 0.3s; }
+        .credits a:hover { color: var(--accent); }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
@@ -180,11 +177,7 @@
                             <li>Apuração de balancetes e Balanço Patrimonial</li>
                             <li>Escrituração do Lalur (Lucro Real)</li>
                             <li>Elaboração de Livros Diário e Razão</li>
-                            <li>Orientação periódica da situação contábil-fiscal</li>
-                            <li>Elaboração das guias de Impostos Retidos na Fonte</li>
-                            <li>Sistema integrado com as áreas fiscal e trabalhista</li>
                             <li>Análise das demonstrações financeiras e custos</li>
-                            <li>Planejamento e Orçamentos</li>
                         </ul>
                     </div>
                     <div class="service-list-wrapper">
@@ -192,10 +185,9 @@
                         <ul class="service-list">
                             <li>Escrituração e conferência de livros fiscais</li>
                             <li>Obrigações IPI, ICMS, ISS e Simples Nacional</li>
-                            <li>Planejamento Tributário para o melhor enquadramento</li>
-                            <li>Escrituração do Livro Registro de Inventário</li>
+                            <li>Planejamento Tributário estratégico</li>
                             <li>Cálculo de Tributos em atraso e parcelamentos</li>
-                            <li>Controle da aplicação dos dispositivos legais vigentes</li>
+                            <li>Controle da aplicação dos dispositivos legais</li>
                         </ul>
                     </div>
                 </div>
@@ -204,53 +196,25 @@
             <div class="dept-container reveal">
                 <div class="dept-header">
                     <h3>Departamento Pessoal</h3>
-                    <p>Prestação de serviços de registro e RH com orientação completa na aplicação da legislação trabalhista, previdenciária e acessória.</p>
+                    <p>Orientação na aplicação da legislação trabalhista, assim como obrigações previdenciárias e acessórias.</p>
                 </div>
                 <div class="services-grid">
                     <div class="service-list-wrapper">
                         <h4>Gestão de RH e Folha</h4>
                         <ul class="service-list">
                             <li>Registro e Contratos de Experiência</li>
-                            <li>Registro em carteira profissional e PIS</li>
                             <li>Emissão de folhas de pagamento e recibos</li>
                             <li>Emissão de guias de FGTS e INSS</li>
                             <li>Décimo terceiro, férias e dissídios</li>
-                            <li>Termos de responsabilidade e Vale Transporte</li>
                         </ul>
                     </div>
                     <div class="service-list-wrapper">
                         <h4>Obrigações e Consultoria</h4>
                         <ul class="service-list">
-                            <li>Rescisões de contratos (toda parte legal)</li>
-                            <li>Acompanhamento de homologações (atendimento ágil)</li>
-                            <li>Obrigações sindicais e declarações acessórias</li>
+                            <li>Rescisões de contratos e homologações ágeis</li>
+                            <li>Obrigações sindicais e declarações</li>
                             <li>Orientação legal trabalhista/previdenciária</li>
-                            <li>Relatórios e entregas mensais e anuais</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dept-container reveal">
-                <div class="dept-header">
-                    <h3>Departamento de Atos / Registro</h3>
-                    <p>Setor Societário. Assistência na área burocrática da administração, desde a abertura e licenças até alterações contratuais e alvarás.</p>
-                </div>
-                <div class="services-grid">
-                    <div class="service-list-wrapper">
-                        <h4>Societário</h4>
-                        <ul class="service-list">
-                            <li>Elaboração de Contrato Social e Atas</li>
-                            <li>Abertura, Alteração e Encerramento de empresas</li>
-                            <li>Requerimento de empresário individual</li>
-                        </ul>
-                    </div>
-                    <div class="service-list-wrapper">
-                        <h4>Regularização</h4>
-                        <ul class="service-list">
-                            <li>Registro em órgãos Federais, Estaduais e Municipais</li>
-                            <li>Inscrição de Autônomo</li>
-                            <li>Obtenção de Certidões Negativas em geral</li>
+                            <li>Relatórios mensais e anuais</li>
                         </ul>
                     </div>
                 </div>
@@ -261,13 +225,11 @@
     <section class="section-gray" style="background: var(--bg-light); padding: 100px 0;">
         <div class="container reveal">
             <div class="team-grid">
-                <div>
-                    <img src="Imagens/equipe_vallorem.avif" alt="Equipe Vallorem" class="team-img">
-                </div>
+                <div><img src="Imagens/equipe_vallorem.avif" alt="Equipe Vallorem" class="team-img"></div>
                 <div>
                     <span style="color: var(--primary); font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Atendimento Consultivo</span>
                     <h2 style="font-size: 2.5rem; margin: 20px 0; color: var(--dark);">Tecnologia no processo, humanidade no atendimento.</h2>
-                    <p>Nossa equipe é composta por especialistas que entendem as particularidades do seu nicho. Unimos a tradição de 15 anos com processos inovadores para oferecer suporte resolutivo em cada contato.</p>
+                    <p>Nossa equipe é composta por especialistas que entendem as particularidades do seu nicho. Unimos a tradição com processos inovadores para oferecer suporte resolutivo em cada contato.</p>
                 </div>
             </div>
         </div>
@@ -277,12 +239,12 @@
         <div class="location-box">
             <div class="location-info">
                 <h2 style="font-size: 2.2rem; color: var(--dark); margin-bottom: 20px;">Estamos em Vitória</h2>
-                <p style="color: var(--text-light); margin-bottom: 30px;">Prontos para te receber em nossa sede estratégica no Metropolitan Office.</p>
-                <p style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> <strong>Endereço:</strong><br>Ed. Metropolitan Office - R. Dr. Eurico de Aguiar, 888 - Santa Lucia, Vitória - ES, 29056-205</p>
+                <p style="color: var(--text-light); margin-bottom: 30px;">Ed. Metropolitan Office. No coração da capital.</p>
+                <p style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> <strong>Endereço:</strong><br>R. Dr. Eurico de Aguiar, 888 - Santa Lucia, Vitória - ES, 29056-205</p>
                 <p><i class="fas fa-clock" style="color: var(--primary);"></i> <strong>Horário:</strong><br>Segunda a Sexta: 08:00 às 18:00</p>
             </div>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.92134515286!2d-40.2974395!3d-20.3035071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb8165942296955%3A0x825e3a6150b3cb1!2sVallorem%20-%20Assessoria%20Empresarial!5e0!3m2!1spt-BR!2sbr!4v1712615000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.879624507008!2d-40.29864272391054!3d-20.305273155169648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb8165924496955%3A0x825e3a6150b3cb1e!2sVallorem%20-%20Assessoria%20Empresarial!5e0!3m2!1spt-BR!2sbr!4v1712610000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
@@ -333,13 +295,15 @@
 
     <footer>
         <div class="container">
-            <img src="Imagens/logo_extensa.png" alt="Vallorem" style="height: 40px; margin-bottom: 20px;">
+            <img src="Imagens/logo_extensa.png" alt="Vallorem" style="height: 40px;">
             <div class="social-icons">
                 <a href="#"><i class="fab fa-linkedin"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-facebook-square"></i></a>
             </div>
-            <p style="font-size: 0.9rem; color: var(--text-light);">© 2026 Vallorem Assessoria Empresarial. Vitória, ES. - Site desenvolvido por Viofilme</p>
+            <p style="font-size: 0.9rem; color: var(--text-light);">© 2026 Vallorem Assessoria Empresarial. Vitória, ES.</p>
+            
+            <p class="credits">Desenvolvida por <a href="https://www.instagram.com/viofilme/" target="_blank">Viofilme</a></p>
         </div>
     </footer>
 
