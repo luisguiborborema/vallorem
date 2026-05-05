@@ -4,30 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vallorem | Contabilidade Estratégica e Consultiva</title>
-    
+
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="Imagens/Vallorem_Logo03.png">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
-            --primary: #004692; 
+            --primary: #004692;
             --dark: #001e3e;
             --accent: #33a1e1;
             --white: #ffffff;
-            --bg-light: #f8fafc;
+            --bg-contrast: #f0f4f8;
             --text-main: #1e293b;
             --text-light: #64748b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            color: var(--text-main); 
-            overflow-x: hidden; 
-            background-color: var(--white); 
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-color: var(--white);
             line-height: 1.6;
         }
 
@@ -45,77 +46,664 @@
         .logo img { height: 35px; }
 
         .btn {
-            background: var(--primary); color: white; padding: 12px 28px;
+            background: var(--primary); color: white; padding: 14px 32px;
             border-radius: 8px; text-decoration: none; font-weight: 600;
             transition: all 0.3s; display: inline-block; border: none; cursor: pointer;
+            font-size: 1rem;
         }
         .btn:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,70,146,0.15); }
 
+        section { padding: 100px 0; }
+        .bg-white { background-color: var(--white); }
+        .bg-contrast { background-color: var(--bg-contrast); }
+
+        /* --- HERO --- */
         .hero { padding: 180px 0 100px; text-align: center; background: radial-gradient(circle at top right, #f0f7ff, #ffffff); }
         .hero .copy-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; margin-bottom: 15px; display: block; }
         .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; color: var(--dark); }
         .hero p { font-size: 1.25rem; color: var(--text-light); max-width: 750px; margin: 0 auto 40px; }
 
-        .video-section { padding: 60px 0; text-align: center; }
-        .video-container { 
-            max-width: 850px; margin: 0 auto; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); border: 8px solid white;
-        }
-        .video-container iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+        /* --- VÍDEO VERTICAL FIXO --- */
+        .video-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
+        .video-text h2 { font-size: 2.2rem; color: var(--dark); margin-bottom: 20px; line-height: 1.2;}
+        .video-text p { color: var(--text-light); font-size: 1.1rem; margin-bottom: 30px; }
 
-        .logos-bar { padding: 60px 0; background: var(--white); overflow: hidden; position: relative; border-bottom: 1px solid #eee; }
-        .logos-bar p { font-size: 0.8rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 40px; text-align: center; }
-        .slider { display: flex; width: calc(250px * 10); animation: scroll 25s linear infinite; }
-        .slider:hover { animation-play-state: paused; }
+        .video-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 8px solid white;
+            background: #000;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            aspect-ratio: 9 / 16;
+            position: relative;
+        }
+        .video-container video {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; object-fit: cover;
+        }
+
+        /* --- CARROSSEL LOGOS (5 logos por bloco, sem espaços vazios) --- */
+        .logos-bar { padding: 60px 0; border-bottom: 1px solid #eee; border-top: 1px solid #eee; overflow: hidden; position: relative; }
+        /* Largura calculada para 20 logos (4 blocos de 5) */
+        .slider { display: flex; width: calc(250px * 20); animation: scroll 28s linear infinite; }
         .slide { width: 250px; display: flex; justify-content: center; align-items: center; }
         .slide img { height: 45px; filter: grayscale(100%); opacity: 0.5; transition: 0.3s; }
         .slide img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
 
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 5)); }
+        /* Logos brancos (texto/grafismo branco sobre fundo transparente) — inverte para ficar visível */
+        .slide.logo-white img { filter: invert(1) grayscale(100%); height: 32px; max-width: 180px; object-fit: contain; }
+        .slide.logo-white img:hover { filter: invert(1) grayscale(0%); }
+
+        /* A animação sempre reseta após passar 1 bloco original (5 logos = 1250px) */
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-250px * 5)); } }
+
+        /* --- SOBRE A EMPRESA --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+        .about-text .copy-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; margin-bottom: 14px; display: block; }
+        .about-text h2 { font-size: 2.4rem; color: var(--dark); margin-bottom: 22px; line-height: 1.2; font-weight: 800; }
+        .about-text p { color: var(--text-light); margin-bottom: 18px; font-size: 1.02rem; line-height: 1.7; }
+        .about-text strong { color: var(--dark); font-weight: 700; }
+        .about-text .btn { margin-top: 14px; }
+
+        .about-stats { display: flex; flex-direction: column; gap: 16px; }
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 18px;
+            padding: 24px 28px;
+            box-shadow: 0 4px 20px rgba(0,30,62,0.04);
+            transition: all 0.35s ease;
+        }
+        .stat-card:hover { transform: translateX(8px); box-shadow: 0 14px 35px rgba(0,30,62,0.08); }
+        .stat-icon {
+            width: 58px; height: 58px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; font-size: 1.4rem;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 8px 18px rgba(0,70,146,0.18);
+        }
+        .stat-info { flex: 1; }
+        .stat-number { font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 6px; }
+        .stat-number span { font-size: 1.2rem; font-weight: 700; margin-left: 2px; }
+        .stat-label { font-size: 0.9rem; color: var(--text-light); line-height: 1.45; }
+
+        .stat-card-featured {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            border-color: transparent;
+            box-shadow: 0 14px 30px rgba(0,70,146,0.18);
+        }
+        .stat-card-featured .stat-icon { background: rgba(255,255,255,0.18); box-shadow: none; }
+        .stat-card-featured .stat-number { color: white; }
+        .stat-card-featured .stat-label { color: rgba(255,255,255,0.85); }
+
+        /* --- DEPARTAMENTOS (Visual Renovado) --- */
+        .section-title-wrapper { text-align: center; margin-bottom: 60px; }
+        .section-title-wrapper .copy-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; margin-bottom: 12px; display: block; }
+        .section-title-wrapper h2 { font-size: 2.5rem; color: var(--dark); line-height: 1.2; margin-bottom: 16px; }
+        .section-title-wrapper p { color: var(--text-light); max-width: 650px; margin: 0 auto; font-size: 1.05rem; }
+
+        .dept-container {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0,30,62,0.04);
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .dept-container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        .dept-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0,30,62,0.08);
+            border-color: #e2e8f0;
+        }
+        .dept-container:hover::before { transform: scaleX(1); }
+
+        .dept-header {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 32px;
+            padding-bottom: 28px;
+        }
+        .dept-icon {
+            flex-shrink: 0;
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            box-shadow: 0 8px 20px rgba(0,70,146,0.2);
+        }
+        .dept-header-text { flex: 1; }
+        .dept-tag {
+            display: inline-block;
+            background: var(--bg-contrast);
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .dept-header h3 { color: var(--dark); font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; line-height: 1.25; }
+        .dept-header p { color: var(--text-light); font-size: 0.98rem; line-height: 1.65; }
+
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+        .service-list-wrapper {
+            background: linear-gradient(135deg, #fafbfd, #f5f7fa);
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+        }
+        .service-list-wrapper:hover { background: linear-gradient(135deg, #f5f7fa, #eef2f7); border-color: #e2e8f0; }
+
+        .service-list-wrapper h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            color: var(--dark);
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .service-list-wrapper h4 i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            width: 28px;
+            height: 28px;
+            background: rgba(0,70,146,0.08);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .section-services { padding: 100px 0; background: var(--bg-light); }
-        .dept-container { background: white; border-radius: 20px; padding: 40px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; }
-        .dept-header { border-bottom: 2px solid var(--bg-light); margin-bottom: 30px; padding-bottom: 20px; }
-        .dept-header h3 { color: var(--primary); font-size: 1.8rem; margin-bottom: 10px; font-weight: 800; }
-        
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .service-list-wrapper h4 { margin-bottom: 15px; color: var(--dark); font-size: 1.1rem; border-left: 4px solid var(--accent); padding-left: 10px; font-weight: 700; }
         .service-list { list-style: none; }
-        .service-list li { margin-bottom: 8px; font-size: 0.9rem; color: var(--text-light); position: relative; padding-left: 20px; }
-        .service-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        .service-list li {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            position: relative;
+            padding-left: 26px;
+            line-height: 1.55;
+        }
+        .service-list li::before {
+            content: "\f00c"; /* checkmark Font Awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            width: 18px;
+            height: 18px;
+            background: rgba(51,161,225,0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 100px 0; }
+        .single-col { grid-template-columns: 1fr; }
+        .single-col .service-list-wrapper .service-list { columns: 2; column-gap: 32px; }
+        .single-col .service-list li { break-inside: avoid; }
+
+        /* --- EQUIPE E LOCALIZAÇÃO --- */
+        .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .team-img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
 
-        .location-section { padding: 100px 0; background: var(--white); }
         .location-box { background: white; border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
         .location-info { padding: 60px; }
-        .map-container { min-height: 450px; background: #eee; }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
+        .map-container iframe { width: 100%; height: 100%; border: 0; min-height: 450px; }
 
-        .section-dark { background: var(--primary); padding: 100px 0; color: white; }
-        .form-card { background: white; padding: 50px; border-radius: 24px; max-width: 700px; margin: 0 auto; color: var(--text-main); }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        /* --- FORMULÁRIO (Renovado) --- */
+        .section-dark {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .section-dark::before {
+            content: "";
+            position: absolute;
+            top: -120px; right: -120px;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(51,161,225,0.18), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .section-dark::after {
+            content: "";
+            position: absolute;
+            bottom: -150px; left: -100px;
+            width: 360px; height: 360px;
+            background: radial-gradient(circle, rgba(51,161,225,0.12), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info .copy-tag {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .contact-info h2 {
+            font-size: 2.4rem;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 18px;
+            font-weight: 800;
+        }
+        .contact-info > p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.05rem;
+            margin-bottom: 28px;
+            line-height: 1.65;
+        }
+
+        .contact-benefits { list-style: none; margin-top: 24px; }
+        .contact-benefits li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+            color: white;
+            font-size: 0.98rem;
+        }
+        .contact-benefits li i {
+            width: 30px; height: 30px;
+            background: rgba(51,161,225,0.2);
+            border: 1px solid rgba(51,161,225,0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.3);
+            color: var(--text-main);
+        }
+        .form-card h3 {
+            color: var(--dark);
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+        .form-card .form-subtitle {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            margin-bottom: 24px;
+        }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .form-full { grid-column: span 2; }
-        input, select { width: 100%; padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-family: inherit; margin-bottom: 5px; }
 
-        footer { padding: 60px 0 40px; background: var(--white); text-align: center; border-top: 1px solid #eee; }
-        .social-icons { margin: 25px 0; display: flex; justify-content: center; gap: 25px; }
-        .social-icons a { color: var(--primary); font-size: 1.8rem; transition: 0.3s; }
-        
-        /* Estilo Viofilme */
-        .credits { font-size: 0.8rem; margin-top: 30px; color: var(--text-light); }
+        .form-field { position: relative; }
+        .form-field > i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            pointer-events: none;
+            transition: color 0.25s;
+        }
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: #fafbfd;
+            transition: all 0.25s;
+            margin-bottom: 0;
+        }
+        .form-field input:focus,
+        .form-field select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0,70,146,0.08);
+        }
+        .form-field input:focus ~ i,
+        .form-field select:focus ~ i { color: var(--primary); }
+
+        .form-field select {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+        .form-submit i { transition: transform 0.3s; }
+        .form-submit:hover i { transform: translateX(4px); }
+
+        .form-privacy {
+            margin-top: 16px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.78rem;
+        }
+        .form-privacy i { color: var(--primary); margin-right: 6px; }
+
+        /* --- FOOTER (Renovado) --- */
+        footer {
+            padding: 70px 0 0;
+            background: linear-gradient(180deg, #fafbfd 0%, #eef2f8 100%);
+            color: var(--text-main);
+            border-top: 1px solid #e2e8f0;
+            text-align: left;
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+            gap: 40px;
+            padding-bottom: 50px;
+        }
+
+        .footer-brand img { height: 38px; margin-bottom: 18px; }
+        .footer-brand p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            line-height: 1.65;
+            margin-bottom: 24px;
+            max-width: 290px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin: 0;
+        }
+        .social-icons a {
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .social-icons a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,70,146,0.2);
+        }
+
+        .footer-col h5 {
+            color: var(--dark);
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        .footer-col h5::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 28px; height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col li { margin-bottom: 11px; }
+        .footer-col a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-col a:hover { color: var(--primary); transform: translateX(3px); }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .footer-contact-item i {
+            color: var(--primary);
+            margin-top: 4px;
+            flex-shrink: 0;
+            font-size: 0.95rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #d8e0eb;
+            padding: 22px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+        .footer-bottom p { margin: 0; }
+        .credits { font-size: 0.82rem; color: var(--text-light); margin: 0; }
         .credits a { color: var(--primary); text-decoration: none; font-weight: 700; transition: color 0.3s; }
         .credits a:hover { color: var(--accent); }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .services-grid, .team-grid, .location-box, .form-grid { grid-template-columns: 1fr; }
-            .form-full { grid-column: span 1; }
+        /* ============================================
+           RESPONSIVIDADE
+           ============================================ */
+
+        /* --- TABLET (até 1024px) --- */
+        @media (max-width: 1024px) {
+            .container { padding: 0 32px; }
+            section { padding: 80px 0; }
+            .hero { padding: 150px 0 80px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.1rem; }
+            .video-grid { gap: 40px; }
+            .video-text h2 { font-size: 1.9rem; }
+            .services-grid { gap: 30px; }
+            .dept-container { padding: 32px; }
+            .dept-header h3 { font-size: 1.6rem; }
+            .team-grid { gap: 40px; }
             .location-info { padding: 40px; }
+            .form-card { padding: 40px; }
+        }
+
+        /* --- MOBILE (até 768px) --- */
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            section { padding: 60px 0; }
+
+            /* Header */
+            header { height: 70px; }
+            .logo img { height: 28px; }
+            .btn { padding: 10px 18px; font-size: 0.85rem; }
+
+            /* Hero */
+            .hero { padding: 120px 0 60px; }
+            .hero h1 { font-size: 2rem; }
+            .hero h1 br { display: none; }
+            .hero p { font-size: 1rem; }
+            .hero .copy-tag { font-size: 0.75rem; }
+
+            /* Video / Grids viram coluna única */
+            .video-grid, .services-grid, .team-grid, .location-box, .form-grid, .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .contact-info { text-align: center; }
+            .contact-info h2 { font-size: 1.7rem; }
+            .contact-info > p { font-size: 0.98rem; }
+            .contact-benefits li { justify-content: flex-start; text-align: left; max-width: 320px; margin-left: auto; margin-right: auto; }
+            .form-card { padding: 28px 22px; }
+            .form-card h3 { font-size: 1.2rem; }
+
+            /* Footer mobile */
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; padding-bottom: 36px; }
+            .footer-brand { grid-column: span 2; text-align: center; }
+            .footer-brand p { margin-left: auto; margin-right: auto; }
+            .footer-brand .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; text-align: center; padding: 18px 0; }
+            .about-text h2 { font-size: 1.7rem; text-align: center; }
+            .about-text p { font-size: 0.98rem; text-align: center; }
+            .about-text { text-align: center; }
+            .stat-card { padding: 20px 22px; gap: 18px; }
+            .stat-icon { width: 48px; height: 48px; font-size: 1.2rem; border-radius: 12px; }
+            .stat-number { font-size: 1.8rem; }
+            .stat-label { font-size: 0.85rem; }
+            .video-text h2 { font-size: 1.6rem; text-align: center; }
+            .video-text h2 br { display: none; }
+            .video-text p { text-align: center; font-size: 1rem; }
+            .video-text { text-align: center; }
+            .video-container { max-width: 260px; }
+
+            .form-full { grid-column: span 1; }
+            .form-grid { grid-template-columns: 1fr; gap: 12px; }
+
+            /* Departamentos */
+            .dept-container { padding: 28px 22px; margin-bottom: 22px; border-radius: 18px; }
+            .dept-header { flex-direction: column; gap: 14px; padding-bottom: 20px; margin-bottom: 22px; }
+            .dept-icon { width: 52px; height: 52px; font-size: 1.3rem; border-radius: 14px; }
+            .dept-header h3 { font-size: 1.3rem; }
+            .dept-header p { font-size: 0.92rem; }
+            .service-list-wrapper { padding: 22px; }
+            .service-list-wrapper h4 { font-size: 1rem; }
+            .service-list li { font-size: 0.88rem; }
+            .single-col .service-list-wrapper .service-list { columns: 1; }
+
+            /* Títulos de seção */
+            .section-title-wrapper { margin-bottom: 40px; }
+            .section-title-wrapper h2 { font-size: 1.9rem; }
+            .section-title-wrapper p { font-size: 0.98rem; }
+            #servicos > .container > h2 { font-size: 1.8rem !important; margin-bottom: 40px !important; }
+            .team-grid h2 { font-size: 1.8rem !important; }
+            .location-info h2 { font-size: 1.6rem !important; }
+
+            /* Localização */
+            .location-info { padding: 30px; }
+            .map-container iframe { min-height: 300px; }
+
+            /* Footer extra */
+            footer { padding: 50px 0 0; }
+
+            /* Carrossel — mobile */
+            .logos-bar { padding: 40px 0; }
+            .slide { width: 160px; }
+            .slide img { height: 38px; }
+            .slide.logo-white img { height: 26px; max-width: 130px; }
+            .slider { width: calc(160px * 20); }
+            @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-160px * 5)); } }
+        }
+
+        /* --- MOBILE PEQUENO (até 480px) --- */
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .hero h1 { font-size: 1.7rem; }
+            .hero p { font-size: 0.95rem; }
+            .btn { padding: 12px 22px; font-size: 0.9rem; }
+            .video-text h2 { font-size: 1.4rem; }
+            .dept-container { padding: 20px; }
+            .dept-header h3 { font-size: 1.25rem; }
+            .form-card { padding: 24px 20px; }
+            .form-card h3 { font-size: 1.1rem; }
+            .contact-info h2 { font-size: 1.5rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+            .footer-brand { grid-column: span 1; }
+            .footer-col h5::after { left: 50%; transform: translateX(-50%); }
+            .footer-col a:hover { transform: none; }
+            .footer-contact-item { justify-content: center; text-align: left; max-width: 260px; margin-left: auto; margin-right: auto; }
+            .section-title-wrapper h2 { font-size: 1.55rem; }
+            .dept-container { padding: 24px 18px; }
+            .dept-header h3 { font-size: 1.15rem; }
+            .service-list-wrapper { padding: 18px; }
+            #servicos > .container > h2 { font-size: 1.5rem !important; }
+            .team-grid h2 { font-size: 1.5rem !important; }
+            .location-info { padding: 24px; }
+
+            /* Carrossel ainda menor */
+            .slide { width: 130px; }
+            .slide img { height: 32px; }
+            .slide.logo-white img { height: 22px; max-width: 110px; }
+            .slider { width: calc(130px * 20); }
+            @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-130px * 5)); } }
         }
     </style>
 </head>
@@ -128,7 +716,7 @@
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero bg-white">
         <div class="container reveal">
             <span class="copy-tag">Tecnologia no processo, humanidade no atendimento.</span>
             <h1>Contabilidade Viva para<br>Empresas Estratégicas.</h1>
@@ -137,173 +725,324 @@
         </div>
     </section>
 
-    <section class="video-section container reveal">
-        <h2 style="margin-bottom: 40px; font-size: 2.2rem; color: var(--dark);">Sua empresa em boas mãos</h2>
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/ZH3EyJsLhaw" title="Apresentação Vallorem" allowfullscreen></iframe>
+    <section class="bg-contrast">
+        <div class="container video-grid reveal">
+            <div class="video-text">
+                <h2>O atendimento que você<br>procurava, agora ao seu alcance.</h2>
+                <p>Neste curto vídeo, apresentamos como a Vallorem combina 15 anos de expertise tradicional com as ferramentas digitais mais modernas para proteger o patrimônio da sua empresa.</p>
+                <a href="#contato" class="btn">Falar com um Consultor</a>
+            </div>
+            <div class="video-container">
+                <video controls preload="metadata">
+                    <source src="videos/video01.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeos.
+                </video>
+            </div>
         </div>
     </section>
 
-    <div class="logos-bar reveal">
-        <div class="container"><p>Empresas que confiam na nossa autoridade</p></div>
+    <!-- CARROSSEL LOGOS (4 logos x 4 blocos = 16 slides para loop infinito suave) -->
+    <div class="logos-bar bg-white">
         <div class="slider">
-            <div class="slide"><img src="Imagens/advogado.png" alt="Advogado"></div>
-            <div class="slide"><img src="Imagens/estetica.jpg" alt="Estética"></div>
-            <div class="slide"><img src="Imagens/consultoria.png" alt="Consultoria"></div>
-            <div class="slide"><img src="Imagens/centauro.png" alt="Centauro"></div>
-            <div class="slide"><img src="Imagens/chilli_beans.png" alt="Chilli Beans"></div>
-            <div class="slide"><img src="Imagens/advogado.png" alt="Advogado"></div>
-            <div class="slide"><img src="Imagens/estetica.jpg" alt="Estética"></div>
-            <div class="slide"><img src="Imagens/consultoria.png" alt="Consultoria"></div>
-            <div class="slide"><img src="Imagens/centauro.png" alt="Centauro"></div>
-            <div class="slide"><img src="Imagens/chilli_beans.png" alt="Chilli Beans"></div>
+            <!-- Bloco 1 -->
+            <div class="slide"><img src="Imagens/FTSC.png" alt="FTSC"></div>
+            <div class="slide logo-white"><img src="Imagens/CJAR.png" alt="CJAR"></div>
+            <div class="slide"><img src="Imagens/LOGO SALUTE.jpeg" alt="Salute"></div>
+            <div class="slide"><img src="Imagens/MAXIMIZE.png" alt="MAXIMIZE"></div>
+            <!-- Bloco 2 -->
+            <div class="slide"><img src="Imagens/FTSC.png" alt="FTSC"></div>
+            <div class="slide logo-white"><img src="Imagens/CJAR.png" alt="CJAR"></div>
+            <div class="slide"><img src="Imagens/LOGO SALUTE.jpeg" alt="Salute"></div>
+            <div class="slide"><img src="Imagens/MAXIMIZE.png" alt="MAXIMIZE"></div>
+            <!-- Bloco 3 -->
+            <div class="slide"><img src="Imagens/FTSC.png" alt="FTSC"></div>
+            <div class="slide logo-white"><img src="Imagens/CJAR.png" alt="CJAR"></div>
+            <div class="slide"><img src="Imagens/LOGO SALUTE.jpeg" alt="Salute"></div>
+            <div class="slide"><img src="Imagens/MAXIMIZE.png" alt="MAXIMIZE"></div>
+            <!-- Bloco 4 -->
+            <div class="slide"><img src="Imagens/FTSC.png" alt="FTSC"></div>
+            <div class="slide logo-white"><img src="Imagens/CJAR.png" alt="CJAR"></div>
+            <div class="slide"><img src="Imagens/LOGO SALUTE.jpeg" alt="Salute"></div>
+            <div class="slide"><img src="Imagens/MAXIMIZE.png" alt="MAXIMIZE"></div>
         </div>
     </div>
 
-    <section class="section-services">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 60px; color: var(--dark);">Nossas Áreas de Atuação</h2>
-
-            <div class="dept-container reveal">
-                <div class="dept-header">
-                    <h3>Departamento Contábil - Fiscal</h3>
-                    <p>O "coração" do escritório. Aqui realizamos os serviços principais e mais demandados. Unimos fiscal e contábil em um só setor para facilitar a integração de informações e agilidade.</p>
+    <!-- SOBRE A VALLOREM -->
+    <section class="bg-white" id="sobre">
+        <div class="container reveal">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="copy-tag">Sobre a Vallorem</span>
+                    <h2>Tradição construída ao longo de mais de 15 anos.</h2>
+                    <p>A Vallorem não é um escritório que surgiu do dia para a noite. Estamos em <strong>operação contínua desde 2009</strong>, ao lado de empresas que buscam mais do que um contador — buscam um parceiro estratégico de longo prazo.</p>
+                    <p>Nossa bagagem vai além: a experiência familiar de uma das nossas lideranças soma <strong>quase 30 anos</strong> de atuação na área contábil. Conhecimento técnico transmitido de geração em geração, traduzido em segurança e previsibilidade para o seu negócio.</p>
+                    <a href="#contato" class="btn">Falar com nossos especialistas</a>
                 </div>
-                <div class="services-grid">
-                    <div class="service-list-wrapper">
-                        <h4>Área Contábil</h4>
-                        <ul class="service-list">
-                            <li>Escrituração conforme normas vigentes</li>
-                            <li>Apuração de balancetes e Balanço Patrimonial</li>
-                            <li>Escrituração do Lalur (Lucro Real)</li>
-                            <li>Elaboração de Livros Diário e Razão</li>
-                            <li>Análise das demonstrações financeiras e custos</li>
-                        </ul>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-flag"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-number">2009</div>
+                            <div class="stat-label">Ano de fundação da Vallorem</div>
+                        </div>
                     </div>
-                    <div class="service-list-wrapper">
-                        <h4>Área Fiscal e Tributária</h4>
-                        <ul class="service-list">
-                            <li>Escrituração e conferência de livros fiscais</li>
-                            <li>Obrigações IPI, ICMS, ISS e Simples Nacional</li>
-                            <li>Planejamento Tributário estratégico</li>
-                            <li>Cálculo de Tributos em atraso e parcelamentos</li>
-                            <li>Controle da aplicação dos dispositivos legais</li>
-                        </ul>
+                    <div class="stat-card stat-card-featured">
+                        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-number">15<span>+</span></div>
+                            <div class="stat-label">Anos de operação contínua no mercado</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="dept-container reveal">
-                <div class="dept-header">
-                    <h3>Departamento Pessoal</h3>
-                    <p>Orientação na aplicação da legislação trabalhista, assim como obrigações previdenciárias e acessórias.</p>
-                </div>
-                <div class="services-grid">
-                    <div class="service-list-wrapper">
-                        <h4>Gestão de RH e Folha</h4>
-                        <ul class="service-list">
-                            <li>Registro e Contratos de Experiência</li>
-                            <li>Emissão de folhas de pagamento e recibos</li>
-                            <li>Emissão de guias de FGTS e INSS</li>
-                            <li>Décimo terceiro, férias e dissídios</li>
-                        </ul>
-                    </div>
-                    <div class="service-list-wrapper">
-                        <h4>Obrigações e Consultoria</h4>
-                        <ul class="service-list">
-                            <li>Rescisões de contratos e homologações ágeis</li>
-                            <li>Obrigações sindicais e declarações</li>
-                            <li>Orientação legal trabalhista/previdenciária</li>
-                            <li>Relatórios mensais e anuais</li>
-                        </ul>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-medal"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-number">30<span> anos</span></div>
+                            <div class="stat-label">De tradição contábil herdada de geração em geração</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-gray" style="background: var(--bg-light); padding: 100px 0;">
+    <!-- ÁREAS DE ATUAÇÃO -->
+    <section class="bg-contrast" id="servicos">
+        <div class="container">
+            <div class="section-title-wrapper reveal">
+                <span class="copy-tag">O que fazemos</span>
+                <h2>Nossas Áreas de Atuação</h2>
+                <p>Três departamentos integrados que cuidam de cada detalhe da sua empresa — do balanço ao registro, da folha à consultoria estratégica.</p>
+            </div>
+
+            <div class="dept-container reveal">
+                <div class="dept-header">
+                    <div class="dept-icon"><i class="fas fa-calculator"></i></div>
+                    <div class="dept-header-text">
+                        <span class="dept-tag">Departamento 01</span>
+                        <h3>Contábil &amp; Fiscal</h3>
+                        <p>O "coração" do escritório. Aqui realizamos os serviços principais e mais demandados pelos nossos clientes. Recentemente unimos os departamentos fiscal e contábil em um só setor, facilitando a integração de informações e divisão das responsabilidades entre o time.</p>
+                    </div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-list-wrapper">
+                        <h4><i class="fas fa-chart-line"></i> Área Contábil</h4>
+                        <ul class="service-list">
+                            <li>Classificação e escrituração da contabilidade de acordo com as normas e princípios contábeis vigentes</li>
+                            <li>Apuração de balancetes</li>
+                            <li>Elaboração do balanço patrimonial anual e demonstrativo de resultado do exercício</li>
+                            <li>Elaboração dos Livros Diário e Razão</li>
+                            <li>Orientação periódica da situação contábil-fiscal</li>
+                            <li>Elaboração das guias de Impostos Retidos na Fonte</li>
+                            <li>Sistema de contabilidade totalmente informatizado e integrado com as áreas fiscal e trabalhista</li>
+                            <li>Análise das demonstrações financeiras</li>
+                            <li>Contabilidade de Custos</li>
+                            <li>Planejamento e Orçamentos</li>
+                        </ul>
+                    </div>
+                    <div class="service-list-wrapper">
+                        <h4><i class="fas fa-receipt"></i> Área Fiscal e Tributária</h4>
+                        <ul class="service-list">
+                            <li>Escrituração e conferência dos livros fiscais por processamento de dados</li>
+                            <li>Elaboração das obrigações fiscais referente ao IPI e Livro de Apuração do IPI</li>
+                            <li>Elaboração das obrigações fiscais referente ao ICMS, Livros de Entrada, Saída e Apuração do ICMS</li>
+                            <li>Planejamento Tributário buscando sempre o melhor enquadramento ao cliente</li>
+                            <li>Elaboração e envio nos respectivos prazos das guias de recolhimento do PIS, COFINS, IPI, ICMS, ISS e Simples Nacional</li>
+                            <li>Escrituração do Livro Registro de Inventário</li>
+                            <li>Cálculo de Tributos em atraso (PIS, COFINS, IPI, ICMS, ISS e Simples Nacional) bem como parcelamento Federal, Estadual e Municipal</li>
+                            <li>Orientação e controle da aplicação dos dispositivos legais vigentes, sejam Federais, Estaduais ou Municipais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept-container reveal">
+                <div class="dept-header">
+                    <div class="dept-icon"><i class="fas fa-users"></i></div>
+                    <div class="dept-header-text">
+                        <span class="dept-tag">Departamento 02</span>
+                        <h3>Pessoal &amp; Recursos Humanos</h3>
+                        <p>Setor responsável pelos serviços de registro e RH dos nossos clientes, com orientação na aplicação da legislação trabalhista e gestão das obrigações previdenciárias e acessórias.</p>
+                    </div>
+                </div>
+                <div class="services-grid single-col">
+                    <div class="service-list-wrapper">
+                        <h4><i class="fas fa-id-badge"></i> Serviços Prestados</h4>
+                        <ul class="service-list">
+                            <li>Registro</li>
+                            <li>Contrato de experiência</li>
+                            <li>Termos de responsabilidade</li>
+                            <li>Declaração para vale transporte</li>
+                            <li>Registro em carteira profissional</li>
+                            <li>Cadastro de PIS / Caixa Econômica Federal</li>
+                            <li>Emissão de folhas de pagamento e seus respectivos recibos</li>
+                            <li>Emissão de guias de FGTS e INSS</li>
+                            <li>Obrigações sindicais</li>
+                            <li>Acompanhamento do processo de férias</li>
+                            <li>Décimo terceiro salário e dissídios</li>
+                            <li>Rescisões de contratos (toda parte legal)</li>
+                            <li>Acompanhamento de homologações para colaboradores com mais de um ano de empresa, com garantia de atendimento ágil e eficiente</li>
+                            <li>Orientação legal trabalhista e previdenciária</li>
+                            <li>Relatórios e entregas de declarações mensais e anuais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dept-container reveal">
+                <div class="dept-header">
+                    <div class="dept-icon"><i class="fas fa-file-signature"></i></div>
+                    <div class="dept-header-text">
+                        <span class="dept-tag">Departamento 03</span>
+                        <h3>Atos &amp; Registro</h3>
+                        <p>Setor de Atos Comerciais e Societário. Damos assistência ao cliente na área mais "burocrática" da administração empresarial — desde a abertura/constituição da empresa, alvarás e licenças, até alterações contratuais.</p>
+                    </div>
+                </div>
+                <div class="services-grid single-col">
+                    <div class="service-list-wrapper">
+                        <h4><i class="fas fa-folder-open"></i> Serviços Prestados</h4>
+                        <ul class="service-list">
+                            <li>Elaboração de Contrato Social e Atas para Abertura, Alteração e Encerramento de empresas</li>
+                            <li>Requerimento de empresário individual</li>
+                            <li>Registro junto aos órgãos competentes no âmbito Federal, Estadual e Municipal</li>
+                            <li>Inscrição de Autônomo</li>
+                            <li>Obtenção de Certidões negativa em geral</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="bg-white">
         <div class="container reveal">
             <div class="team-grid">
                 <div><img src="Imagens/equipe_vallorem.avif" alt="Equipe Vallorem" class="team-img"></div>
                 <div>
                     <span style="color: var(--primary); font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Atendimento Consultivo</span>
-                    <h2 style="font-size: 2.5rem; margin: 20px 0; color: var(--dark);">Tecnologia no processo, humanidade no atendimento.</h2>
-                    <p>Nossa equipe é composta por especialistas que entendem as particularidades do seu nicho. Unimos a tradição com processos inovadores para oferecer suporte resolutivo em cada contato.</p>
+                    <h2 style="font-size: 2.5rem; margin: 20px 0; color: var(--dark);">Sua empresa em boas mãos.</h2>
+                    <p>Nossa equipe une a tradição de 15 anos com processos inovadores para oferecer suporte resolutivo e estratégico em cada contato.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="location-section container reveal">
-        <div class="location-box">
-            <div class="location-info">
-                <h2 style="font-size: 2.2rem; color: var(--dark); margin-bottom: 20px;">Estamos em Vitória</h2>
-                <p style="color: var(--text-light); margin-bottom: 30px;">Ed. Metropolitan Office. No coração da capital.</p>
-                <p style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> <strong>Endereço:</strong><br>R. Dr. Eurico de Aguiar, 888 - Santa Lucia, Vitória - ES, 29056-205</p>
-                <p><i class="fas fa-clock" style="color: var(--primary);"></i> <strong>Horário:</strong><br>Segunda a Sexta: 08:00 às 18:00</p>
-            </div>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.879624507008!2d-40.29864272391054!3d-20.305273155169648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb8165924496955%3A0x825e3a6150b3cb1e!2sVallorem%20-%20Assessoria%20Empresarial!5e0!3m2!1spt-BR!2sbr!4v1712610000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+    <section class="bg-contrast">
+        <div class="container reveal">
+            <div class="location-box">
+                <div class="location-info">
+                    <h2 style="font-size: 2.2rem; color: var(--dark); margin-bottom: 20px;">Estamos em Vitória</h2>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Ed. Metropolitan Office. No coração da capital.</p>
+                    <p><strong>Endereço:</strong><br>R. Dr. Eurico de Aguiar, 888 - Santa Lucia, Vitória - ES, 29056-205</p>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.92134515286!2d-40.2974395!3d-20.3035071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb8165942296955%3A0x825e3a6150b3cb1e!2sVallorem%20-%20Assessoria%20Empresarial!5e0!3m2!1spt-BR!2sbr!4v1712615000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="section-dark" id="contato">
-        <div class="container reveal">
-            <div class="form-card">
-                <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark);">Agendar Reunião</h2>
-                <form action="#" method="POST">
-                    <div class="form-grid">
-                        <div class="form-full"><label>Nome Completo</label><input type="text" placeholder="Seu nome" required></div>
-                        <div class="form-full"><label>Nome da Empresa</label><input type="text" placeholder="Nome Fantasia"></div>
-                        <div><label>WhatsApp</label><input type="tel" placeholder="(27) 99999-9999" required></div>
-                        <div>
-                            <label>Segmento</label>
-                            <select required>
-                                <option value="" disabled selected>Selecione...</option>
-                                <option>Advocacia</option>
-                                <option>Saúde / Clínicas</option>
-                                <option>Engenharia / TI</option>
-                                <option>Outros</option>
-                            </select>
+        <div class="container">
+            <div class="contact-grid reveal">
+                <div class="contact-info">
+                    <span class="copy-tag">Vamos conversar</span>
+                    <h2>Agende sua reunião estratégica.</h2>
+                    <p>Em até 24h um de nossos consultores entra em contato para entender o seu negócio e propor o melhor caminho contábil para a sua empresa.</p>
+                    <ul class="contact-benefits">
+                        <li><i class="fas fa-check"></i> Diagnóstico inicial gratuito</li>
+                        <li><i class="fas fa-check"></i> Resposta em até 24 horas úteis</li>
+                        <li><i class="fas fa-check"></i> Atendimento humano e consultivo</li>
+                    </ul>
+                </div>
+
+                <div class="form-card">
+                    <h3>Preencha seus dados</h3>
+                    <p class="form-subtitle">Levamos sua solicitação a sério.</p>
+                    <form>
+                        <div class="form-grid">
+                            <div class="form-full form-field">
+                                <i class="fas fa-user"></i>
+                                <input type="text" placeholder="Seu nome completo" required>
+                            </div>
+                            <div class="form-full form-field">
+                                <i class="fas fa-building"></i>
+                                <input type="text" placeholder="Nome da empresa">
+                            </div>
+                            <div class="form-field">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" placeholder="WhatsApp" required>
+                            </div>
+                            <div class="form-field">
+                                <i class="fas fa-chart-line"></i>
+                                <select required>
+                                    <option value="" disabled selected>Faturamento mensal</option>
+                                    <option>Até R$ 30k</option>
+                                    <option>R$ 30k a R$ 100k</option>
+                                    <option>Acima de R$ 100k</option>
+                                </select>
+                            </div>
                         </div>
-                        <div>
-                            <label>Tipo de Empresa</label>
-                            <select required>
-                                <option value="" disabled selected>Selecione...</option>
-                                <option>ME / EPP</option>
-                                <option>Lucro Presumido / Real</option>
-                                <option>Vou abrir agora</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Faturamento Mensal</label>
-                            <select required>
-                                <option value="" disabled selected>Faixa...</option>
-                                <option>Até R$ 30k</option>
-                                <option>R$ 30k a R$ 100k</option>
-                                <option>Acima de R$ 100k</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%; margin-top: 15px; padding: 16px;">Solicitar Consultoria</button>
-                </form>
+                        <button type="submit" class="btn form-submit">
+                            Solicitar Consultoria <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <p class="form-privacy">
+                            <i class="fas fa-lock"></i> Seus dados estão protegidos pela LGPD
+                        </p>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <img src="Imagens/logo_extensa.png" alt="Vallorem" style="height: 40px;">
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook-square"></i></a>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="Imagens/logo_extensa.png" alt="Vallorem">
+                    <p>Contabilidade estratégica e consultiva. Tradição de mais de 15 anos cuidando do que importa para o seu negócio.</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Empresa</h5>
+                    <ul>
+                        <li><a href="#sobre">Sobre a Vallorem</a></li>
+                        <li><a href="#servicos">Áreas de Atuação</a></li>
+                        <li><a href="#contato">Agendar Reunião</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Departamentos</h5>
+                    <ul>
+                        <li><a href="#servicos">Contábil &amp; Fiscal</a></li>
+                        <li><a href="#servicos">Pessoal &amp; RH</a></li>
+                        <li><a href="#servicos">Atos &amp; Registro</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Contato</h5>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>R. Dr. Eurico de Aguiar, 888<br>Santa Lucia, Vitória &ndash; ES</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contato@vallorem.com.br</span>
+                    </div>
+                </div>
             </div>
-            <p style="font-size: 0.9rem; color: var(--text-light);">© 2026 Vallorem Assessoria Empresarial. Vitória, ES.</p>
-            
-            <p class="credits">Desenvolvida por <a href="https://www.instagram.com/viofilme/" target="_blank">Viofilme</a></p>
+
+            <div class="footer-bottom">
+                <p>© 2026 Vallorem Assessoria Empresarial. Todos os direitos reservados.</p>
+                <p class="credits">Desenvolvida por <a href="https://www.instagram.com/viofilme/" target="_blank">Viofilme</a></p>
+            </div>
         </div>
     </footer>
 
