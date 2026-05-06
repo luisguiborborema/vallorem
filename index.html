@@ -85,7 +85,23 @@
         }
 
         /* --- CARROSSEL LOGOS (5 logos por bloco, sem espaços vazios) --- */
-        .logos-bar { padding: 60px 0; border-bottom: 1px solid #eee; border-top: 1px solid #eee; overflow: hidden; position: relative; }
+        .logos-bar {
+            padding: 60px 0;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(180deg, #fafbfd 0%, #ffffff 50%, #fafbfd 100%);
+        }
+        .logos-bar::before,
+        .logos-bar::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--accent), var(--primary), transparent);
+            opacity: 0.4;
+        }
+        .logos-bar::before { top: 0; }
+        .logos-bar::after { bottom: 0; }
         /* Largura calculada para 20 logos (4 blocos de 5) */
         .slider { display: flex; width: calc(250px * 20); animation: scroll 28s linear infinite; }
         .slide { width: 250px; display: flex; justify-content: center; align-items: center; }
@@ -99,13 +115,73 @@
         /* A animação sempre reseta após passar 1 bloco original (5 logos = 1250px) */
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-250px * 5)); } }
 
-        /* --- SOBRE A EMPRESA --- */
+        /* --- SOBRE A EMPRESA (Section Destacada em Azul) --- */
+        .about-section-blue {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .about-section-blue::before {
+            content: "";
+            position: absolute;
+            top: -120px; left: -120px;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(51,161,225,0.18), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .about-section-blue::after {
+            content: "";
+            position: absolute;
+            bottom: -150px; right: -100px;
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(51,161,225,0.12), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .about-section-blue .container { position: relative; z-index: 1; }
+
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
         .about-text .copy-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; margin-bottom: 14px; display: block; }
         .about-text h2 { font-size: 2.4rem; color: var(--dark); margin-bottom: 22px; line-height: 1.2; font-weight: 800; }
         .about-text p { color: var(--text-light); margin-bottom: 18px; font-size: 1.02rem; line-height: 1.7; }
         .about-text strong { color: var(--dark); font-weight: 700; }
         .about-text .btn { margin-top: 14px; }
+
+        /* Overrides quando a section "Sobre" está em azul */
+        .about-section-blue .about-text .copy-tag { color: var(--accent); }
+        .about-section-blue .about-text h2 { color: white; }
+        .about-section-blue .about-text p { color: rgba(255,255,255,0.8); }
+        .about-section-blue .about-text strong { color: white; }
+        .about-section-blue .about-text .btn {
+            background: white;
+            color: var(--primary);
+        }
+        .about-section-blue .about-text .btn:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 10px 24px rgba(51,161,225,0.3);
+        }
+        .about-section-blue .stat-card {
+            background: white;
+            border: none;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+        }
+        .about-section-blue .stat-card:hover {
+            box-shadow: 0 28px 55px rgba(0,0,0,0.3);
+        }
+        .about-section-blue .stat-card-featured {
+            background: white;
+            border: 2px solid var(--accent);
+            box-shadow: 0 22px 50px rgba(51,161,225,0.35);
+        }
+        .about-section-blue .stat-card-featured .stat-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 8px 18px rgba(0,70,146,0.25);
+        }
+        .about-section-blue .stat-card-featured .stat-number { color: var(--primary); }
+        .about-section-blue .stat-card-featured .stat-label { color: var(--text-light); }
 
         .about-stats { display: flex; flex-direction: column; gap: 16px; }
         .stat-card {
@@ -279,12 +355,137 @@
         .single-col .service-list-wrapper .service-list { columns: 2; column-gap: 32px; }
         .single-col .service-list li { break-inside: avoid; }
 
-        /* --- EQUIPE E LOCALIZAÇÃO --- */
-        .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .team-img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        /* --- EQUIPE (Section Destacada em Azul) --- */
+        .team-section {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        .team-section::before {
+            content: "";
+            position: absolute;
+            top: -150px; right: -100px;
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, rgba(51,161,225,0.18), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .team-section::after {
+            content: "";
+            position: absolute;
+            bottom: -120px; left: -80px;
+            width: 360px; height: 360px;
+            background: radial-gradient(circle, rgba(51,161,225,0.12), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .team-section .container { position: relative; z-index: 1; }
 
-        .location-box { background: white; border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
-        .location-info { padding: 60px; }
+        .team-header { text-align: center; max-width: 720px; margin: 0 auto 60px; }
+        .team-header .copy-tag {
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .team-header h2 { font-size: 2.4rem; color: white; line-height: 1.2; margin-bottom: 16px; font-weight: 800; }
+        .team-header p { color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.65; }
+
+        .team-cards-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: center;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            flex: 0 0 calc((100% - 56px) / 3);
+            max-width: 340px;
+            min-width: 240px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .team-member::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), white);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+            z-index: 2;
+        }
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 35px 70px rgba(0,0,0,0.4);
+        }
+        .team-member:hover::before { transform: scaleX(1); }
+
+        .team-photo {
+            width: 100%;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-contrast), #e2e8f0);
+        }
+        .team-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+        .team-member:hover .team-photo img { transform: scale(1.06); }
+
+        .team-info { padding: 24px 22px 26px; }
+        .team-name { color: var(--dark); font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+        .team-role { color: var(--primary); font-size: 0.88rem; font-weight: 600; margin-bottom: 14px; line-height: 1.4; }
+        .team-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-contrast);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .team-tag i { color: var(--primary); font-size: 0.72rem; }
+
+        /* --- LOCALIZAÇÃO --- */
+
+        .location-box { background: white; border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 20px 50px rgba(0,30,62,0.08); }
+        .location-info {
+            padding: 60px;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .location-info::before {
+            content: "";
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(51,161,225,0.18), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .location-info > * { position: relative; z-index: 1; }
+        .location-info h2 { color: white !important; }
+        .location-info p { color: rgba(255,255,255,0.85) !important; }
+        .location-info p strong { color: white; }
         .map-container iframe { width: 100%; height: 100%; border: 0; min-height: 450px; }
 
         /* --- FORMULÁRIO (Renovado) --- */
@@ -583,6 +784,9 @@
             .dept-container { padding: 32px; }
             .dept-header h3 { font-size: 1.6rem; }
             .team-grid { gap: 40px; }
+            .team-cards-grid { gap: 22px; max-width: 700px; }
+            .team-member { flex: 0 0 calc((100% - 22px) / 2); }
+            .team-header h2 { font-size: 2rem; }
             .location-info { padding: 40px; }
             .form-card { padding: 40px; }
         }
@@ -634,6 +838,16 @@
             .video-text p { text-align: center; font-size: 1rem; }
             .video-text { text-align: center; }
             .video-container { max-width: 260px; }
+
+            /* Equipe - mobile */
+            .team-header { margin-bottom: 36px; }
+            .team-header h2 { font-size: 1.7rem; }
+            .team-header p { font-size: 0.95rem; }
+            .team-cards-grid { gap: 22px; max-width: 380px; }
+            .team-member { flex: 0 0 100%; max-width: 100%; }
+            .team-photo { aspect-ratio: 4/4; }
+            .team-info { padding: 20px 20px 22px; }
+            .team-name { font-size: 1.1rem; }
 
             .form-full { grid-column: span 1; }
             .form-grid { grid-template-columns: 1fr; gap: 12px; }
@@ -734,7 +948,7 @@
             </div>
             <div class="video-container">
                 <video controls preload="metadata">
-                    <source src="videos/video01.mp4" type="video/mp4"> <!-- video -->
+                    <source src="videos/video01.mp4" type="video/mp4">
                     Seu navegador não suporta vídeos.
                 </video>
             </div>
@@ -768,7 +982,7 @@
     </div>
 
     <!-- SOBRE A VALLOREM -->
-    <section class="bg-white" id="sobre">
+    <section class="about-section-blue" id="sobre">
         <div class="container reveal">
             <div class="about-grid">
                 <div class="about-text">
@@ -830,10 +1044,9 @@
                             <li>Classificação e escrituração da contabilidade de acordo com as normas e princípios contábeis vigentes</li>
                             <li>Apuração de balancetes</li>
                             <li>Elaboração do balanço patrimonial anual e demonstrativo de resultado do exercício</li>
-                            <li>Elaboração dos Livros Diário e Razão</li>
                             <li>Orientação periódica da situação contábil-fiscal</li>
-                            <li>Elaboração das guias de Impostos Retidos na Fonte</li>
-                            <li>Sistema de contabilidade totalmente informatizado e integrado com as áreas fiscal e trabalhista</li>
+                            <li>Sistema contábil digital e integrado, com sincronização contínua com as informações fiscais e trabalhistas</li>
+                            <li>Elaboração de ECD (Escrituração Contábil Digital) e ECF (Escrituração Contábil Fiscal) e demais obrigações acessórias</li>
                             <li>Análise das demonstrações financeiras</li>
                             <li>Contabilidade de Custos</li>
                             <li>Planejamento e Orçamentos</li>
@@ -847,7 +1060,7 @@
                             <li>Elaboração das obrigações fiscais referente ao ICMS, Livros de Entrada, Saída e Apuração do ICMS</li>
                             <li>Planejamento Tributário buscando sempre o melhor enquadramento ao cliente</li>
                             <li>Elaboração e envio nos respectivos prazos das guias de recolhimento do PIS, COFINS, IPI, ICMS, ISS e Simples Nacional</li>
-                            <li>Escrituração do Livro Registro de Inventário</li>
+                            <li>Escrituração e realização de SPED Fiscal</li>
                             <li>Cálculo de Tributos em atraso (PIS, COFINS, IPI, ICMS, ISS e Simples Nacional) bem como parcelamento Federal, Estadual e Municipal</li>
                             <li>Orientação e controle da aplicação dos dispositivos legais vigentes, sejam Federais, Estaduais ou Municipais</li>
                         </ul>
@@ -914,14 +1127,68 @@
         </div>
     </section>
 
-    <section class="bg-white">
+    <section class="team-section" id="equipe">
         <div class="container reveal">
-            <div class="team-grid">
-                <div><img src="Imagens/equipe_vallorem.avif" alt="Equipe Vallorem" class="team-img"></div>
-                <div>
-                    <span style="color: var(--primary); font-weight: 800; font-size: 0.9rem; text-transform: uppercase;">Atendimento Consultivo</span>
-                    <h2 style="font-size: 2.5rem; margin: 20px 0; color: var(--dark);">Sua empresa em boas mãos.</h2>
-                    <p>Nossa equipe une a tradição de 15 anos com processos inovadores para oferecer suporte resolutivo e estratégico em cada contato.</p>
+            <div class="team-header">
+                <span class="copy-tag">Conheça nossa equipe</span>
+                <h2>Pessoas reais cuidando do seu negócio.</h2>
+                <p>Por trás de cada relatório, declaração e orientação está um time dedicado — gerações de experiência somando décadas de tradição contábil em Vitória.</p>
+            </div>
+
+            <div class="team-cards-grid">
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="Imagens/marco_aurelio.jpeg" alt="Marco Aurélio">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Marco Aurélio</h3>
+                        <p class="team-role">Contador e Administrador</p>
+                        <span class="team-tag"><i class="fas fa-medal"></i> Quase 30 anos de experiência</span>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="Imagens/marcos.jpeg" alt="Marcos">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Marcos</h3>
+                        <p class="team-role">Gerente e Administrador &middot; Departamento Pessoal</p>
+                        <span class="team-tag"><i class="fas fa-briefcase"></i> +14 anos de experiência</span>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="Imagens/ivan_marcos.jpeg" alt="Ivan Marcos">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Ivan Marcos</h3>
+                        <p class="team-role">Contador &middot; Departamento Contábil</p>
+                        <span class="team-tag"><i class="fas fa-chart-line"></i> +4 anos de experiência</span>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="Imagens/giulia.jpeg" alt="Giulia">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Giulia</h3>
+                        <p class="team-role">Estagiária &middot; Departamento Fiscal e Contábil</p>
+                        <span class="team-tag"><i class="fas fa-graduation-cap"></i> Estagiária</span>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="Imagens/miguel.jpeg" alt="Miguel">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Miguel</h3>
+                        <p class="team-role">Estagiário &middot; Departamento de Atos</p>
+                        <span class="team-tag"><i class="fas fa-graduation-cap"></i> Estagiário</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -959,23 +1226,47 @@
                 <div class="form-card">
                     <h3>Preencha seus dados</h3>
                     <p class="form-subtitle">Levamos sua solicitação a sério.</p>
-                    <form>
+                    <form id="contactForm" novalidate>
                         <div class="form-grid">
                             <div class="form-full form-field">
                                 <i class="fas fa-user"></i>
-                                <input type="text" placeholder="Seu nome completo" required>
+                                <input
+                                    type="text"
+                                    name="nome"
+                                    placeholder="Seu nome completo"
+                                    required
+                                    maxlength="80"
+                                    minlength="3"
+                                    autocomplete="name"
+                                    pattern="[A-Za-zÀ-ÿ\s'-]{3,80}"
+                                    title="Digite seu nome completo (apenas letras)">
                             </div>
                             <div class="form-full form-field">
                                 <i class="fas fa-building"></i>
-                                <input type="text" placeholder="Nome da empresa">
+                                <input
+                                    type="text"
+                                    name="empresa"
+                                    placeholder="Nome da empresa"
+                                    maxlength="60"
+                                    autocomplete="organization">
                             </div>
                             <div class="form-field">
                                 <i class="fas fa-phone"></i>
-                                <input type="tel" placeholder="WhatsApp" required>
+                                <input
+                                    type="tel"
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    placeholder="(00) 00000-0000"
+                                    required
+                                    maxlength="15"
+                                    inputmode="numeric"
+                                    autocomplete="tel"
+                                    pattern="\(\d{2}\)\s\d{4,5}-\d{4}"
+                                    title="Digite um WhatsApp válido — ex: (27) 99999-9999">
                             </div>
                             <div class="form-field">
                                 <i class="fas fa-chart-line"></i>
-                                <select required>
+                                <select name="faturamento" required>
                                     <option value="" disabled selected>Faturamento mensal</option>
                                     <option>Até R$ 30k</option>
                                     <option>R$ 30k a R$ 100k</option>
@@ -1013,6 +1304,7 @@
                     <ul>
                         <li><a href="#sobre">Sobre a Vallorem</a></li>
                         <li><a href="#servicos">Áreas de Atuação</a></li>
+                        <li><a href="#equipe">Nossa Equipe</a></li>
                         <li><a href="#contato">Agendar Reunião</a></li>
                     </ul>
                 </div>
@@ -1047,6 +1339,7 @@
     </footer>
 
     <script>
+        // Animação reveal ao scroll
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -1057,6 +1350,63 @@
         }
         window.addEventListener("scroll", reveal);
         reveal();
+
+        // Máscara automática para WhatsApp — (XX) XXXXX-XXXX
+        (function() {
+            var whatsapp = document.getElementById("whatsapp");
+            if (!whatsapp) return;
+
+            function formatWhatsapp(value) {
+                // Remove tudo que não for dígito
+                var digits = value.replace(/\D/g, "");
+                // Limita a 11 dígitos (DDD + 9 dígitos)
+                digits = digits.substring(0, 11);
+
+                if (digits.length === 0) return "";
+                if (digits.length <= 2) return "(" + digits;
+                if (digits.length <= 6) return "(" + digits.substring(0, 2) + ") " + digits.substring(2);
+                if (digits.length <= 10) {
+                    return "(" + digits.substring(0, 2) + ") " + digits.substring(2, 6) + "-" + digits.substring(6);
+                }
+                return "(" + digits.substring(0, 2) + ") " + digits.substring(2, 7) + "-" + digits.substring(7);
+            }
+
+            whatsapp.addEventListener("input", function(e) {
+                e.target.value = formatWhatsapp(e.target.value);
+            });
+
+            // Bloqueia caracteres não numéricos no keypress (exceto teclas de controle)
+            whatsapp.addEventListener("keypress", function(e) {
+                var charCode = e.which || e.keyCode;
+                if (charCode < 48 || charCode > 57) {
+                    e.preventDefault();
+                }
+            });
+
+            // Permite colar apenas números
+            whatsapp.addEventListener("paste", function(e) {
+                e.preventDefault();
+                var pasted = (e.clipboardData || window.clipboardData).getData("text");
+                e.target.value = formatWhatsapp(pasted);
+            });
+        })();
+
+        // Validação amigável no submit
+        (function() {
+            var form = document.getElementById("contactForm");
+            if (!form) return;
+
+            form.addEventListener("submit", function(e) {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    var firstInvalid = form.querySelector(":invalid");
+                    if (firstInvalid) {
+                        firstInvalid.focus();
+                        firstInvalid.reportValidity();
+                    }
+                }
+            });
+        })();
     </script>
 </body>
 </html>
